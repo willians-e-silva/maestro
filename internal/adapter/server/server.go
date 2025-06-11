@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/willians-e-silva/maestro/internal/adapter/graphql" // Importe seu pacote GraphQL
+	"github.com/willians-e-silva/maestro/internal/adapter/graphql"
 	"github.com/willians-e-silva/maestro/internal/usecase"
 
 	"github.com/99designs/gqlgen/graphql/handler"

@@ -14,7 +14,7 @@ type Config struct {
 func LoadConfig() *Config {
 	return &Config{
 		Port:        getEnv("PORT", "8080"),
-		DatabaseURL: getEnv("DATABASE_URL", "postgres://user:password@localhost:5432/mydb"),
+		DatabaseURL: getEnv("DATABASE_URL", "postgres://user:123@localhost:5432/mydb"),
 	}
 }
 
