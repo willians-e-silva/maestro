@@ -1,0 +1,49 @@
+# Binaries
+/bin/
+/bin/*
+
+# Build output
+/tmp/
+/tmp/*
+
+# Vendor directory (se usar módulos com vendor)
+vendor/
+
+# Go build cache, logs e arquivos temporários
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Arquivos de dependências baixadas pelo Go modules (mas não é obrigatório ignorar)
+# Pode ficar se quiser, mas geralmente go.mod e go.sum são versionados
+# /pkg/mod/
+
+# IDEs e editores
+.vscode/
+.idea/
+*.iml
+
+# Arquivos gerados pelo gqlgen
+**/generated.go
+
+# Arquivos gerados do Protobuf
+**/*.pb.go
+
+# Arquivos do Air (hot reload)
+bin/air
+
+# Logs e arquivos temporários
+*.log
+
+# MacOS files
+.DS_Store
+
+# Linux files
+*~
+
+# Outros
+.env

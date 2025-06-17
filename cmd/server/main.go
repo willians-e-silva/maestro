@@ -27,6 +27,6 @@ func main() {
 	// 3. Inicializar os Casos de Uso (Core da Aplicação)
 	userUsecase := usecase.NewUserUsecase(userRepo)
 
-	// 4. Iniciar o Servidor GraphQL (Adaptador)
-	server.ServeGraphQL(cfg.Port, userUsecase)
+	// 4. Iniciar o Servidor GRPC (Adaptador)
+	server.ServerGrpc(cfg.Port, userUsecase)
 }

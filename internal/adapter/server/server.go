@@ -1,28 +1,31 @@
-// internal/adapter/server/server.go
 package server
 
 import (
 	"log"
-	"net/http"
+	"net"
 
-	"github.com/willians-e-silva/maestro/internal/adapter/graphql"
+	pb "github.com/willians-e-silva/maestro/internal/infra/grpc/user"
+
 	"github.com/willians-e-silva/maestro/internal/usecase"
-
-	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/99designs/gqlgen/graphql/playground"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
-// ServeGraphQL configura e inicia o servidor GraphQL
-func ServeGraphQL(port string, userUsecase *usecase.UserUsecase) {
-	// Crie o resolvedor com seus casos de uso injetados
-	resolver := graphql.NewResolver(userUsecase)
+func ServerGrpc(port string, userUsecase *usecase.UserUsecase) {
+	listener, err := net.Listen("tcp", ":"+port)
+	if err != nil {
+		log.Fatalf("Falha ao iniciar o listener: %v", err)
+	}
 
-	// Configure o servidor GraphQL
-	srv := handler.NewDefaultServer(graphql.NewExecutableSchema(graphql.Config{Resolvers: resolver}))
+	grpcServer := grpc.NewServer()
 
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	pb.RegisterUserServiceServer(grpcServer, userUsecase)
 
-	log.Printf("Conecte-se ao http://localhost:%s/ para o playground GraphQL", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	reflection.Register(grpcServer)
+
+	log.Printf("Servidor gRPC iniciado na porta %s", port)
+
+	if err := grpcServer.Serve(listener); err != nil {
+		log.Fatalf("Falha ao iniciar o servidor gRPC: %v", err)
+	}
 }

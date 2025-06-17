@@ -1,0 +1,44 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/main ./cmd/server"
+bin = "./tmp/main"
+full_bin = "./tmp/main"
+args = []
+exclude_dir = ["tmp", "bin"]
+include_dir = []
+exclude_file = []
+include_ext = ["go", "tpl", "tmpl", "html", "proto"]
+exclude_regexp = []
+follow_symlink = false
+build_delay = 200
+stop_on_error = true
+log = "build-errors.log"
+
+[run]
+cmd = "./tmp/main"
+log = "app-output.log"
+parser_regexp = "^(FATAL|ERROR)"
+
+[watch]
+paths = [
+    ".",
+    "cmd",
+    "internal",
+    "proto"     
+]
+
+delay = 500
+
+[log]
+level = "debug"
+
+[color]
+main = "magenta"
+build = "yellow"
+runner = "green"
+watcher = "cyan"
+
+[misc]
+clean_on_exit = true

@@ -8,7 +8,6 @@ import (
 type Config struct {
 	Port        string
 	DatabaseURL string
-	// ... Outras configurações
 }
 
 func LoadConfig() *Config {
