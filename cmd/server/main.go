@@ -4,9 +4,9 @@ package main
 import (
 	"log"
 
-	"github.com/willians-e-silva/maestro/internal/adapter/repository"
-	"github.com/willians-e-silva/maestro/internal/adapter/server"
 	"github.com/willians-e-silva/maestro/internal/config"
+	"github.com/willians-e-silva/maestro/internal/handler/repository"
+	"github.com/willians-e-silva/maestro/internal/handler/server"
 	"github.com/willians-e-silva/maestro/internal/platform/database"
 	usecase "github.com/willians-e-silva/maestro/internal/usecase/user"
 )
