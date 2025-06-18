@@ -5,8 +5,8 @@ import (
 	"net"
 
 	pb "github.com/willians-e-silva/maestro/internal/infra/grpc/user"
+	usecase "github.com/willians-e-silva/maestro/internal/usecase/user"
 
-	"github.com/willians-e-silva/maestro/internal/usecase"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

@@ -5,16 +5,18 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/willians-e-silva/maestro/internal/domain"
+	errors "github.com/willians-e-silva/maestro/internal/domain/errors"
+	user "github.com/willians-e-silva/maestro/internal/domain/user"
+
 	pb "github.com/willians-e-silva/maestro/internal/infra/grpc/user"
 )
 
 type UserUsecase struct {
-	userRepo domain.UserRepository
+	userRepo user.UserRepository
 	pb.UnimplementedUserServiceServer
 }
 
-func NewUserUsecase(ur domain.UserRepository) *UserUsecase {
+func NewUserUsecase(ur user.UserRepository) *UserUsecase {
 	return &UserUsecase{userRepo: ur}
 }
 
@@ -33,14 +35,14 @@ func (uc *UserUsecase) GetUserByID(ctx context.Context, req *pb.GetUserByIDReque
 
 func (uc *UserUsecase) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.UserResponse, error) {
 	existingUser, err := uc.userRepo.GetByEmail(req.GetEmail())
-	if err != nil && err != domain.ErrNotFound {
+	if err != nil && err != errors.ErrNotFound {
 		return nil, fmt.Errorf("falha ao verificar usuário existente: %w", err)
 	}
 	if existingUser != nil {
 		return nil, fmt.Errorf("usuário com este email já existe")
 	}
 
-	user := &domain.User{
+	user := &user.User{
 		ID:        "some-generated-id",
 		Name:      req.GetName(),
 		Email:     req.GetEmail(),
@@ -84,11 +86,10 @@ func (uc *UserUsecase) GetUserByEmail(ctx context.Context, req *pb.GetUserByEmai
 }
 
 func (uc *UserUsecase) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UserResponse, error) {
-	user := &domain.User{
-		ID:    req.GetId(),
-		Name:  req.GetName(),
-		Email: req.GetEmail(),
-		// outros campos, se existirem
+	user := &user.User{
+		ID:        req.GetId(),
+		Name:      req.GetName(),
+		Email:     req.GetEmail(),
 		UpdatedAt: time.Now(),
 	}
 

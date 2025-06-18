@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "internal/infra/grpc/task;task";
+
+service TaskService {
+  rpc CreateTask (CreateTaskRequest) returns (TaskResponse);
+}
+
+message TaskResponse {
+  string uuid = 1;
+  string name = 2;
+  string description = 3;
+  string created_at = 4;
+  string updated_at = 5;
+  string deleted_at = 6;
+}
+
+message CreateTaskRequest {
+  string name = 1;
+  string description = 2;
+  string docker_image = 3;
+  string docker_tag = 4;
+  string port = 5;
+  map<string, string> env_vars = 6;
+  repeated string volumes = 7;      
+  string network_mode = 8;          
+  string restart_policy = 9;        
+  int32 cpu_limit = 10;             
+  int32 memory_limit = 11;          
+}
