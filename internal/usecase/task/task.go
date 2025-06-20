@@ -1,12 +1,12 @@
-package usecase
+package taskusecase
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	task "github.com/willians-e-silva/maestro/internal/domain/task"
-	pb "github.com/willians-e-silva/maestro/internal/infra/grpc/task"
+	task "maestro/internal/domain/task"
+	pb "maestro/internal/infra/grpc/task"
 )
 
 type TaskUsecase struct {
@@ -14,7 +14,7 @@ type TaskUsecase struct {
 	pb.UnimplementedTaskServiceServer
 }
 
-func NewUserUsecase(ur task.TaskRepository) *TaskUsecase {
+func NewTaskUsecase(ur task.TaskRepository) *TaskUsecase {
 	return &TaskUsecase{TaskRepo: ur}
 }
 
@@ -42,7 +42,7 @@ func (uc *TaskUsecase) CreateTask(ctx context.Context, req *pb.CreateTaskRequest
 	}
 
 	return &pb.TaskResponse{
-		Uuid:        createdTask.UUID,
+		Id:          createdTask.Id,
 		Name:        createdTask.Name,
 		Description: createdTask.Description,
 	}, nil

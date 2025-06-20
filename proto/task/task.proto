@@ -9,7 +9,7 @@ service TaskService {
 }
 
 message TaskResponse {
-  string uuid = 1;
+  string id = 1;
   string name = 2;
   string description = 3;
   string created_at = 4;

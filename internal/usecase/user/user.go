@@ -1,14 +1,14 @@
-package usecase
+package userusecase
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	errors "github.com/willians-e-silva/maestro/internal/domain/errors"
-	user "github.com/willians-e-silva/maestro/internal/domain/user"
+	errors "maestro/internal/domain/errors"
+	user "maestro/internal/domain/user"
 
-	pb "github.com/willians-e-silva/maestro/internal/infra/grpc/user"
+	pb "maestro/internal/infra/grpc/user"
 )
 
 type UserUsecase struct {

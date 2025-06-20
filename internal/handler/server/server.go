@@ -1,17 +1,21 @@
+// server/server.go
 package server
 
 import (
 	"log"
 	"net"
 
-	pb "github.com/willians-e-silva/maestro/internal/infra/grpc/user"
-	usecase "github.com/willians-e-silva/maestro/internal/usecase/user"
+	taskpb "maestro/internal/infra/grpc/task"
+	userpb "maestro/internal/infra/grpc/user"
+
+	taskusecase "maestro/internal/usecase/task"
+	userusecase "maestro/internal/usecase/user"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
-func ServerGrpc(port string, userUsecase *usecase.UserUsecase) {
+func ServerGrpc(port string, userUsecase *userusecase.UserUsecase, taskUsecase *taskusecase.TaskUsecase) {
 	listener, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		log.Fatalf("Falha ao iniciar o listener: %v", err)
@@ -19,7 +23,8 @@ func ServerGrpc(port string, userUsecase *usecase.UserUsecase) {
 
 	grpcServer := grpc.NewServer()
 
-	pb.RegisterUserServiceServer(grpcServer, userUsecase)
+	userpb.RegisterUserServiceServer(grpcServer, userUsecase)
+	taskpb.RegisterTaskServiceServer(grpcServer, taskUsecase)
 
 	reflection.Register(grpcServer)
 

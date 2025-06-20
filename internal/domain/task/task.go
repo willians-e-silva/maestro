@@ -5,7 +5,7 @@ import (
 )
 
 type Task struct {
-	UUID          string
+	Id            string
 	Name          string
 	Description   string
 	DockerImage   string
@@ -22,6 +22,5 @@ type Task struct {
 }
 
 type TaskRepository interface {
-	RunTask(id string) (*Task, error)
 	CreateTask(task *Task) (*Task, error)
 }

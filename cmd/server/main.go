@@ -4,11 +4,14 @@ package main
 import (
 	"log"
 
-	"github.com/willians-e-silva/maestro/internal/config"
-	"github.com/willians-e-silva/maestro/internal/handler/repository"
-	"github.com/willians-e-silva/maestro/internal/handler/server"
-	"github.com/willians-e-silva/maestro/internal/platform/database"
-	usecase "github.com/willians-e-silva/maestro/internal/usecase/user"
+	"maestro/internal/config"
+	"maestro/internal/handler/repository"
+	"maestro/internal/handler/server"
+	"maestro/internal/platform/database"
+	taskusecase "maestro/internal/usecase/task"
+	userusecase "maestro/internal/usecase/user"
+
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func main() {
@@ -16,12 +19,17 @@ func main() {
 
 	db, err := database.NewPostgresDB(cfg.DatabaseURL)
 	if err != nil {
-		log.Fatalf("Falha ao conectar ao banco de dados: %v", err)
+		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
+	sqlDB, _ := db.DB()
+	database.RunMigrations(sqlDB)
+
 	userRepo := repository.NewPostgresUserRepository(db)
+	taskRepo := repository.NewPostgresTaskRepository(db)
 
-	userUsecase := usecase.NewUserUsecase(userRepo)
+	userUsecase := userusecase.NewUserUsecase(userRepo)
+	taskUsecase := taskusecase.NewTaskUsecase(taskRepo)
 
-	server.ServerGrpc(cfg.Port, userUsecase)
+	server.ServerGrpc(cfg.Port, userUsecase, taskUsecase)
 }

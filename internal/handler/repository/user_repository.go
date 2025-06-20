@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 
-	errors "github.com/willians-e-silva/maestro/internal/domain/errors"
-	user "github.com/willians-e-silva/maestro/internal/domain/user"
+	errors "maestro/internal/domain/errors"
+	user "maestro/internal/domain/user"
 
 	"gorm.io/gorm"
 )
