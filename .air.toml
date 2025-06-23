@@ -2,13 +2,13 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-cmd = "protoc --go_out=. --go-grpc_out=. ./proto/*/*.proto && go build -o ./tmp/main ./cmd/server"
+cmd = "wire ./... && protoc --go_out=. --go-grpc_out=. ./proto/*/*.proto && go build -o ./tmp/main ./cmd/server"
 bin = "./tmp/main"
 full_bin = "./tmp/main"
 args = []
 exclude_dir = ["tmp", "bin"]
 include_dir = []
-exclude_file = ["internal/infra/grpc/*/*.pb.go"]
+exclude_file = ["internal/infra/grpc/*/*.pb.go", "internal/di/wire_gen.go"]
 include_ext = ["go", "tpl", "tmpl", "html", "proto"]
 exclude_regexp = []
 follow_symlink = false

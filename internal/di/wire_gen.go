@@ -8,8 +8,8 @@ package di
 
 import (
 	"maestro/internal/config"
-	"maestro/internal/handler/repository"
 	"maestro/internal/handler/server"
+	"maestro/internal/infra/database/repository"
 	"maestro/internal/platform/database"
 	"maestro/internal/shared"
 	"maestro/internal/usecase/task"
