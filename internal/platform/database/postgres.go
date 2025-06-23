@@ -1,19 +1,14 @@
 package database
 
 import (
-	"log"
+	"maestro/internal/shared"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func NewPostgresDB(dsn string) (*gorm.DB, error) {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+// ...
 
-	if err != nil {
-		return nil, err
-	}
-
-	log.Println("Conectado ao banco de dados PostgreSQL")
-	return db, nil
+func NewPostgresDB(dsn shared.DSN) (*gorm.DB, error) {
+	return gorm.Open(postgres.Open(string(dsn)), &gorm.Config{})
 }

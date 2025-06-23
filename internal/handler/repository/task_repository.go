@@ -10,7 +10,7 @@ type PostgresTaskRepository struct {
 	db *gorm.DB
 }
 
-func NewPostgresTaskRepository(db *gorm.DB) *PostgresTaskRepository {
+func NewPostgresTaskRepository(db *gorm.DB) task.TaskRepository {
 	return &PostgresTaskRepository{db: db}
 }
 
