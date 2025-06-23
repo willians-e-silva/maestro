@@ -11,8 +11,6 @@ type Task struct {
 	DockerImage   string
 	DockerTag     string
 	Port          string
-	EnvVars       map[string]string
-	Volumes       []string
 	NetworkMode   string
 	RestartPolicy string
 	CpuLimit      int32
@@ -23,4 +21,5 @@ type Task struct {
 
 type TaskRepository interface {
 	CreateTask(task *Task) (*Task, error)
+	GetAllTasks() ([]Task, error)
 }

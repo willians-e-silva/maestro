@@ -5,16 +5,14 @@ package proto;
 option go_package = "internal/infra/grpc/task;task";
 
 service TaskService {
-  rpc CreateTask (CreateTaskRequest) returns (TaskResponse);
+  rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse);
+  rpc GetAllTasks (GetAllTasksRequest) returns (GetAllTasksResponse);
 }
 
-message TaskResponse {
+message CreateTaskResponse {
   string id = 1;
   string name = 2;
   string description = 3;
-  string created_at = 4;
-  string updated_at = 5;
-  string deleted_at = 6;
 }
 
 message CreateTaskRequest {
@@ -23,10 +21,30 @@ message CreateTaskRequest {
   string docker_image = 3;
   string docker_tag = 4;
   string port = 5;
-  map<string, string> env_vars = 6;
-  repeated string volumes = 7;      
-  string network_mode = 8;          
-  string restart_policy = 9;        
-  int32 cpu_limit = 10;             
-  int32 memory_limit = 11;          
+  string network_mode = 6;          
+  string restart_policy = 7;        
+  int32 cpu_limit = 8;             
+  int32 memory_limit = 9;          
+}
+
+message Task {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string docker_image = 4;
+  string docker_tag = 5;
+  string port = 6;
+  string network_mode = 7;
+  string restart_policy = 8;
+  int32 cpu_limit = 9;
+  int32 memory_limit = 10;
+  string created_at = 11;
+  string updated_at = 12;
+}
+
+message GetAllTasksResponse {
+  repeated Task tasks = 1;
+}
+
+message GetAllTasksRequest {
 }

@@ -23,3 +23,14 @@ func (r *PostgresTaskRepository) CreateTask(task *task.Task) (*task.Task, error)
 
 	return task, nil
 }
+
+func (r *PostgresTaskRepository) GetAllTasks() ([]task.Task, error) {
+	var tasks []task.Task
+	result := r.db.Find(&tasks)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return tasks, nil
+}

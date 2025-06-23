@@ -1,9 +1,11 @@
 module maestro
 
-go 1.23.1
+go 1.24.4
 
 require (
 	github.com/golang-migrate/migrate/v4 v4.18.3
+	github.com/google/uuid v1.6.0
+	github.com/google/wire v0.6.0
 	github.com/lib/pq v1.10.9
 	google.golang.org/grpc v1.73.0
 	google.golang.org/protobuf v1.36.6
